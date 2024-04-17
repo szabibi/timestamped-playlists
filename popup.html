@@ -1,0 +1,32 @@
+<html>
+  <body>
+    <h1>Timestamped Playlists!</h1>
+    <form id="add-video-form">
+      <label>YouTube link
+        <input type="text" id="link"/>
+      </label>
+      <p id="link-error-message" style="font-weight: bold; color: indianred; display: none">Not a valid youtube link.</p>
+
+      <div style="margin-top: 16px">
+        <label>Start</label>
+          <input type="number" id="startTimestamp" style="width: 64px;"/>
+    </div>
+      <div style="margin-top: 16px; margin-bottom: 16px">
+      <label>End</label>
+        <input type="number" id="endTimestamp" style="width: 64px;"/>
+    </div>
+
+      <button type="button" id="addToPlaylistBtn">Add to playlist</button>
+    </form>
+    <p id="info"></p>
+    <div>
+
+    </div>
+    <button type="button" id="openVideoBtn">Play</button>
+
+    <div id="added-videos-list">
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
