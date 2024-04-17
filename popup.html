@@ -1,5 +1,5 @@
-<html>
-  <body>
+<html style="width: 400px">
+  <body >
     <h1>Timestamped Playlists!</h1>
     <form id="add-video-form">
       <label>YouTube link
@@ -22,9 +22,13 @@
     <div>
 
     </div>
-    <button type="button" id="openVideoBtn">Play</button>
+    <span>
+      <button type="button" id="openVideoBtn">Play</button>
+      <button type="button" id="clearPlaylistBtn">Clear</button>
+    </span>
 
-    <div id="added-videos-list">
+
+    <div id="added-videos-list" style="height: 200px; overflow: auto">
     </div>
 
     <script src="popup.js"></script>

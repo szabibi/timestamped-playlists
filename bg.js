@@ -34,12 +34,28 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
             end: message.end
         }
         addedVideos.push(video);
+        chrome.storage.local.set({addedVideos});
     } else if (message.action === "startPlaylist") {
         if (addedVideos.length > 0) {
             startPlaylist();
         }
-    } else
-    {
+    } else if (message.action === "retrievePlaylist") {
+        if (addedVideos.length === 0) {
+            chrome.storage.local.get(['addedVideos'], function(result) {
+                console.log("playlist retrieved:", result.addedVideos);
+                result.addedVideos.forEach((video) => {
+                    addedVideos.push(video);
+                })
+                sendResponse({playlistLength: addedVideos.length});
+            });
+            return true;
+        } else {
+            // If addedVideos is not empty, send the response immediately
+            sendResponse({ playlistLength: addedVideos.length });
+        }
+    } else if (message.action === "clearPlaylist") {
+        addedVideos.length = 0;
+    } else {
         console.log(message.action);
     }
 });
@@ -90,7 +106,7 @@ function playNextVideo() {
     const videoData = addedVideos[playlistIdx];
     if (videoData.url === previousURL) {
         chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-            chrome.tabs.sendMessage(tabId, { action: "fastForwardTo", timestamp: videoData.start});
+            chrome.tabs.sendMessage(tabId, { action: "jumpTo", timestamp: videoData.start});
         });
     } else {
         pauseVideo();
