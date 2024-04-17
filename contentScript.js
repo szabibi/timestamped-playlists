@@ -46,7 +46,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 	if (player && player.tagName.toLowerCase() === 'video') {
 		if (message.action === "pauseVideo") {
 			player.pause();
-		} else if (message.action === "fastForwardTo") {
+		} else if (message.action === "jumpTo") {
 			player.currentTime = message.timestamp;;
 		}
 	}
